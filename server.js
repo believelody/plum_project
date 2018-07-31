@@ -1,15 +1,21 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const app = express();
+// Bodyparser Middleware
+app.use(bodyParser.json());
 
-app.get('/api/customers', (req, res) => {
-  const customers = [
-    {id: 1, firstName: 'John', lastName: 'Doe'},
-    {id: 2, firstName: 'Brad', lastName: 'Traversy'},
-    {id: 3, firstName: 'Mary', lastName: 'Swanson'},
-  ];
+// DB Config
+const db = require('./config/keys').mongoURI;
+//  Connect to mongodb
+mongoose
+  .connect(db)
+  .then(() => console.log('Mongodb connected'))
+  .catch(err => console.log(err))
 
-  res.json(customers);
+app.get('/', (req, res) => {
+
 });
 
 const port = 5000;
