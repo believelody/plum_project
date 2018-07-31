@@ -10,12 +10,14 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Brad Traversy & Gregory Assasie",
+  "author": "Believe LODY",
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
+    "body-parser": "^1.18.3",
     "concurrently": "^3.5.1",
     "express": "^4.16.2",
+    "mongoose": "^5.2.6",
     "nodemon": "^1.14.7"
   }
 }
