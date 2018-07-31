@@ -4,7 +4,7 @@
 
 ### Version Without Redux
 This version is a react-redux-express starter-pack made by brad from traversy media. This package includes Redux.
-[Click to check brad original version](https://github.com/bradtraversy/react_redux_express_starter) 
+[Click to check brad original version](https://github.com/bradtraversy/react_redux_express_starter)
 
 ## Quick Start
 
@@ -40,5 +40,5 @@ Brad Traversy & Gregory Assasie
 ### License
 
 This project is licensed under the MIT License
-=======
-# mern_starter
+
+# mern_social_network
