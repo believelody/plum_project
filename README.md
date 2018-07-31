@@ -1,11 +1,10 @@
-<<<<<<< HEAD
 # React/Redux Express Starter Pack
 
 > Create full stack apps with React/Redux and Express. Run your client and server with a single command
 
 ### Version Without Redux
-This version includes Redux
-[Click Here For the Version WITHOUT Redux](https://github.com/bradtraversy/react_express_starter) 
+This version is a react-redux-express starter-pack made by brad from traversy media. This package includes Redux.
+[Click to check brad original version](https://github.com/bradtraversy/react_redux_express_starter) 
 
 ## Quick Start
 
@@ -43,4 +42,3 @@ Brad Traversy & Gregory Assasie
 This project is licensed under the MIT License
 =======
 # mern_starter
->>>>>>> 05ee8c15181cfd50d053491098562486fc544673
