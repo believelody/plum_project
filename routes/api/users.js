@@ -1,11 +1,18 @@
 const express =require('express');
 const router = express.Router();
-const User = require('../../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const keys = require('../../config/keys');
 const passport = require('passport');
+
+const keys = require('../../config/keys');
+
+//  Load Input Validation
+const validateRegisterInput = require('../../validations/registerHandler');
+const validateLoginInput = require('../../validations/loginHandler');
+
+//  Load User model
+const User = require('../../models/User');
 
 //  @routes GET api/users
 //  @desc Get All Users
@@ -16,13 +23,21 @@ router.get('/', (req, res) => res.json({ msg: "Users work" }));
 //  @desc Register user
 //  @access Public
 router.post('/register', (req, res) => {
+  let { name, email, password } = req.body;
+  let { errors, isValid } = validateRegisterInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email })
     .then(user => {
       if (user) {
-        return res.status(400).json({ email: "Email already exist"});
+        errors.email = "Email already exists";
+        return res.status(400).json(errors);
       }
       else {
-        let { name, email, password } = req.body;
         let avatar = gravatar.url(email, {
           s: '200', // Size
           r: 'pg', // Rating
@@ -52,14 +67,21 @@ router.post('/register', (req, res) => {
 //  @desc Login user / Return JWT Token
 //  @access Public
 router.post('/login', (req, res) => {
-  const { email, password } = req.body;
+  let { email, password } = req.body;
+  let { errors, isValid } = validateLoginInput(req.body);
+
+  // Check validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   // Find User by Email
   User.findOne({email})
     .then(user => {
       //  Check user
       if (!user) {
-        return res.status(400).json({email: "User not found"});
+        errors.email = "User not found"
+        return res.status(400).json(errors);
       }
 
       //Check password
@@ -79,7 +101,8 @@ router.post('/login', (req, res) => {
             });
           }
           else {
-            return res.status(400).json({password: "Invalid password"});
+            errors.password = "Invalid password";
+            return res.status(400).json(errors);
           }
         });
     });
