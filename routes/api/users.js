@@ -15,7 +15,7 @@ const validateLoginInput = require('../../validations/loginHandler');
 const User = require('../../models/User');
 
 //  @routes GET api/users
-//  @desc Get All Users
+//  @desc Test route for user
 //  @access Public
 router.get('/', (req, res) => res.json({ msg: "Users work" }));
 
