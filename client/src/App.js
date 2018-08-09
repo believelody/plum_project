@@ -1,11 +1,28 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
 import store from './store';
 import { setCurrentUser, logoutUser } from './store/actions/authAction';
+import { clearCurrentProfile } from './store/actions/profileAction';
 import './App.css';
-import { Navbar, Footer, Landing, Register, Login } from './components/Export';
+import {
+  Navbar,
+  Footer,
+  Landing,
+  Register,
+  Login,
+  Dashboard,
+  Profiles,
+  Profile,
+  CreateProfile,
+  EditProfile,
+  PrivateRoute,
+  AddExperience,
+  AddEducation,
+  Feeds,
+  NotFound
+} from './components/Export';
 
 //  Check for token
 if (localStorage.jwtToken) {
@@ -18,9 +35,10 @@ if (localStorage.jwtToken) {
   //  Check for expired token
   const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
+    //  Logout user
     store.dispatch(logoutUser());
-    //  TODO: Clear current profile
-    
+    //  Clear current profile
+    store.dispatch(clearCurrentProfile());
     //  Redirect to login
     window.location.href = '/';
   }
@@ -33,10 +51,23 @@ class App extends Component {
       <BrowserRouter>
         <div>
           <Navbar />
-          <div style={{minHeight: "70.5vh"}}>
+          <div style={{ minHeight: "70.5vh", position: "relative" }}>
             <Route exact path="/" component={Landing} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
+            <Route exact path="/profiles" component={Profiles} />
+            <Route exact path={"/profile/:handle" || "/user/:id"} component={Profile} />
+            <Route exact path="/not-found" component={NotFound} />
+            <div style={{ width: "100%", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/login" component={Login} />
+            </div>
+            <Switch>
+              <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+              <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+              <PrivateRoute exact path="/add-experience" component={AddExperience} />
+              <PrivateRoute exact path="/add-education" component={AddEducation} />
+              <PrivateRoute exact path="/feeds" component={Feeds} />
+            </Switch>
           </div>
           <Footer />
         </div>

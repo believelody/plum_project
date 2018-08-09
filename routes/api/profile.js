@@ -19,6 +19,7 @@ const validateEducationInput = require('../../validations/educationHandler');
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   let errors = {};
   Profile.findOne({user: req.user.id})
+    .populate('user', ['name', 'avatar'])
     .then(profile => {
       if (!profile) {
         errors.noprofile = "Error: There is no profile for this user";
@@ -42,7 +43,6 @@ router.get('/all', (req, res) => {
         errors.noprofile = "There are no profiles";
         return res.status(404).json(errors);
       }
-
       res.json(profiles);
     })
     .catch(err => res.status(404).json({profiles: 'There are no profiles'}));
@@ -58,7 +58,7 @@ router.get('/handle/:handle', (req, res) => {
     .then(profile => {
       if (!profile) {
         errors.noprofile = "There is no profile for this user";
-        res.status(404).json(errors);
+        return res.status(404).json(errors);
       }
       res.json(profile);
     })
@@ -97,10 +97,10 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
   if (req.body.handle) profileFields.handle = req.body.handle;
   if (req.body.company) profileFields.company = req.body.company;
   if (req.body.website) profileFields.website = req.body.website;
-  if (req.body.location) profileFields.location = req.body.location;
+  if (req.body.location || req.body.location === "") profileFields.location = req.body.location;
   if (req.body.status) profileFields.status = req.body.status;
-  if (req.body.bio) profileFields.bio = req.body.bio;
-  if (req.body.githubUsername) profileFields.githubUsername = req.body.githubUsername;
+  if (req.body.bio || req.body.bio === "") profileFields.bio = req.body.bio;
+  if (req.body.githubUsername || req.body.githubUsername === "") profileFields.githubUsername = req.body.githubUsername;
 
   //  Skills field - Split into array
   if (typeof req.body.skills !== 'undefined') {

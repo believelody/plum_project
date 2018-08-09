@@ -41,3 +41,13 @@ export const logoutUser = () => dispatch => {
   //  Set current user to {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 }
+
+//  Delete user account and profile
+export const deleteAccount = () => dispatch => {
+  axios
+    .delete('/api/profile')
+    .then(res => {
+      dispatch({ type: SET_CURRENT_USER, payload: {} })
+    })
+    .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }))
+}

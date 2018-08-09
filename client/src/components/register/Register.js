@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../../store/actions/authAction';
-import classnames from 'classnames';
+import { TextFieldGroup } from '../Export';
 
 class Register extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class Register extends Component {
       errors: {}
     };
   }
-  
+
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
@@ -50,52 +50,38 @@ class Register extends Component {
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your DevConnector account</p>
               <form noValidate onSubmit={this.handleSubmit}>
-                <div className="form-group">
-                  <input
-                  type="text"
-                  className={classnames("form-control form-control-lg", {
-                    "is-invalid": errors.name
-                  })}
-                  placeholder="Name"
+                <TextFieldGroup
                   name="name"
+                  value={name}
+                  placeholder="Enter your name"
+                  error={errors.name}
                   onChange={this.handleChange}
-                  value={name} />
-                  { errors.name && (<span className="invalid-feedback">{errors.name}</span>)}
-                </div>
-                <div className="form-group">
-                  <input
+                />
+                <TextFieldGroup
+                  name="email"
+                  value={email}
+                  placeholder="Email Address"
                   type="email"
-                  className={classnames("form-control form-control-lg", {
-                    "is-invalid": errors.email
-                  })}
-                  placeholder="Email Address" name="email"
+                  error={errors.email}
+                  info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
                   onChange={this.handleChange}
-                  value={email} />
-                  { errors.email && (<span className="invalid-feedback">{errors.email}</span>)}
-                  <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
-                </div>
-                <div className="form-group">
-                  <input
+                />
+                <TextFieldGroup
+                  name="password"
+                  value={password}
+                  placeholder="Password"
                   type="password"
-                  className={classnames("form-control form-control-lg", {
-                    "is-invalid": errors.password
-                  })}
-                  placeholder="Password" name="password"
+                  error={errors.password}
                   onChange={this.handleChange}
-                  value={password} />
-                  { errors.password && (<span className="invalid-feedback">{errors.password}</span>)}
-                </div>
-                <div className="form-group">
-                  <input
+                />
+                <TextFieldGroup
+                  name="password2"
+                  value={password2}
+                  placeholder="Confirm Password"
                   type="password"
-                  className={classnames("form-control form-control-lg", {
-                    "is-invalid": errors.password2
-                  })}
-                  placeholder="Confirm Password" name="password2"
+                  error={errors.password2}
                   onChange={this.handleChange}
-                  value={password2} />
-                  { errors.password2 && (<span className="invalid-feedback">{errors.password2}</span>)}
-                </div>
+                />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

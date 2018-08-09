@@ -16,7 +16,7 @@ module.exports = function validateProfileInput(data) {
    errors.handle = 'Handle profile is required';
   }
 
-  if (validator.isEmpty(data.status)) {
+  if (validator.isEmpty(data.status) || data.status === "0") {
    errors.status = 'Status field is required';
   }
 

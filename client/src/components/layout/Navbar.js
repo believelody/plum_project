@@ -3,19 +3,26 @@ import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../store/actions/authAction';
+import { clearCurrentProfile } from '../../store/actions/profileAction';
 
 class Navbar extends Component {
 
   logout = (e) => {
     e.preventDefault();
     this.props.logoutUser();
-    window.location.href = '/';
+    //window.location.href = '/';
   }
 
   render() {
     const { isAuthenticated, user } = this.props.auth;
     const AuthLinks = ({user}) => (
       <Fragment>
+        <li className="nav-item">
+          <NavLink className="nav-link text-light mr-4" to="/feeds">Posts Feeds</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link text-light mr-4" to="/dashboard">Dashboard</NavLink>
+        </li>
         <li className="nav-item">
           <button className="btn btn-danger" onClick={this.logout}>Logout</button>
         </li>
@@ -43,7 +50,7 @@ class Navbar extends Component {
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <NavLink className="nav-link" to="/profile"> Developers
+                <NavLink className="nav-link" to="/profiles"> Developers
                 </NavLink>
               </li>
             </ul>
@@ -71,4 +78,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { logoutUser })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);
