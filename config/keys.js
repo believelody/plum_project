@@ -1,4 +1,6 @@
-module.exports = {
-  mongoURI: 'mongodb://believe_mern_social_network:mdp2mernsocialnetwork@ds261521.mlab.com:61521/mern_social_network',
-  secret: 'secret'
-};
+if (process.env.NODE_ENV === 'production') {
+  module.exports = require('./keys_prod');
+}
+else {
+  module.exports = require('./keys_dev');
+}

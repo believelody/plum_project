@@ -8,6 +8,7 @@ import TextAreaGroup from './common/TextAreaGroup';
 import SelectFieldGroup from './common/SelectFieldGroup';
 import InputSocialGroup from './common/InputSocialGroup';
 import CheckFieldGroup from './common/CheckFieldGroup';
+import QuoteSlide from './common/QuoteSlide';
 import Dashboard from './dashboard/Dashboard';
 import Spinner from './common/Spinner';
 import Profiles from './profile/Profiles';
@@ -30,6 +31,7 @@ import Posts from './posts/Posts';
 import PostForm from './posts/PostForm';
 import PostItem from './posts/PostItem';
 import Feeds from './feeds/Feeds';
+import Test from './test/Test';
 import NotFound from './not-found/NotFound';
 
 export {
@@ -43,6 +45,7 @@ export {
   SelectFieldGroup,
   InputSocialGroup,
   CheckFieldGroup,
+  QuoteSlide,
   Dashboard,
   Spinner,
   Profiles,
@@ -65,5 +68,6 @@ export {
   PostForm,
   PostItem,
   Feeds,
+  Test,
   NotFound
 }

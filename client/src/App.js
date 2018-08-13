@@ -21,6 +21,7 @@ import {
   AddExperience,
   AddEducation,
   Feeds,
+  Test,
   NotFound
 } from './components/Export';
 
@@ -67,6 +68,7 @@ class App extends Component {
               <PrivateRoute exact path="/add-experience" component={AddExperience} />
               <PrivateRoute exact path="/add-education" component={AddEducation} />
               <PrivateRoute exact path="/feeds" component={Feeds} />
+              <PrivateRoute exact path="/test" component={Test} />
             </Switch>
           </div>
           <Footer />
